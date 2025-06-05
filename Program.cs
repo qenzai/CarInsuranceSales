@@ -2,15 +2,15 @@
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types.Enums;
 using System.Threading;
-using v3;
 
 class Program
 {
     private static TelegramBotClient? _botClient;
+    private static string telegramToken = "7933746753:AAFiDPvlLReLVJ_IS4L3Vmd1Xu831SH_jdM";
+
 
     static async Task Main()
     {
-        string telegramToken = "8145400716:AAH3xDNm97a0-YQ4Id4zr16CiWT-kwN5g_k";
 
         _botClient = new TelegramBotClient(telegramToken);
 
@@ -26,8 +26,8 @@ class Program
             receiverOptions,
             cancellationToken: cts.Token
         );
-
-        Console.WriteLine("🤖 Bot started...");
+        BotHandlers.Initialize(telegramToken);
+        Console.WriteLine("Bot started...");
         await Task.Delay(-1);
     }
 }

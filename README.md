@@ -1,1 +1,1 @@
-# v3
+This is a Telegram bot built with C# that uses the Mindee OCR API to extract data from passport and vehicle registration photos. The bot guides the user through uploading documents, confirming extracted data, agreeing to insurance pricing, and finally issues an insurance policy summary.

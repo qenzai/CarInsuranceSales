@@ -1,16 +1,21 @@
-﻿using Telegram.Bot;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
-using v3;
 
 static class BotHandlers
 {
     private static readonly ConcurrentDictionary<long, UserSession> _sessions = new();
-    static string telegramToken = "8145400716:AAH3xDNm97a0-YQ4Id4zr16CiWT-kwN5g_k";
+    private static string telegramToken;
+    public static void Initialize(string token)
+    {
+        telegramToken = token;
+    }
 
+    // method that works with TgBot check and scan photo, 
+    // then use MindeeService method for parse and send you respond
     public static async Task HandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken token)
     {
         if (update.Message is not { } message)
@@ -23,6 +28,7 @@ static class BotHandlers
         {
             var fileId = message.Photo.Last().FileId;
             var file = await bot.GetFileAsync(fileId, cancellationToken: token);
+            // token uses already in variable for safety
             var fileUrl = $"https://api.telegram.org/file/bot{telegramToken}/{file.FilePath}";
             var tempPath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.jpg");
 
@@ -110,7 +116,7 @@ static class BotHandlers
                     {
                         session.Step = UserStep.Completed;
                         string policy = InsurancePolicy.GenerateInsurancePolicy(session);
-                        await bot.SendTextMessageAsync(chatId, $"📄 Ваш страховий поліс:\n{policy}");
+                        await bot.SendTextMessageAsync(chatId, $" Ваш страховий поліс:\n{policy}");
                         _sessions.TryRemove(chatId, out _);
                     }
                     else if (text == "ні")

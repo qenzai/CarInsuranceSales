@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY CarInsuranceSales.sln .
 COPY v3.csproj .
-RUN dotnet restore
+RUN dotnet restore CarInsuranceSales.sln
 
 COPY InsurancePolicy.cs .
 COPY MindeeService.cs .
@@ -13,10 +13,12 @@ COPY Utilities.cs .
 COPY BotHandlers.cs .
 COPY appsettings.json .
 
-RUN dotnet publish -c Release -o out
+RUN dotnet publish v3.csproj -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/out .
 
 ENTRYPOINT ["dotnet", "v3.dll"]
+
+

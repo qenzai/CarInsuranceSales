@@ -6,7 +6,7 @@ using System.Threading;
 class Program
 {
     private static TelegramBotClient? _botClient;
-    private static string telegramToken = "7933746753:AAFiDPvlLReLVJ_IS4L3Vmd1Xu831SH_jdM";
+    private static string telegramToken = "";
 
 
     static async Task Main()

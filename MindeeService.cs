@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 static class MindeeService
 {
-    private static MindeeClient _mindeeClient = new MindeeClient("f41dab01dbd8afbbdcf2684d1c27431a");
+    private static MindeeClient _mindeeClient = new MindeeClient("MindeeToken");
 
     public static async Task<string> ParseDocument(string filePath, string type)
     {
